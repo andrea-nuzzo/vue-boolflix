@@ -2,6 +2,14 @@
   <div>
       <input v-model="textSearch" type="text" placeholder="Search">
       <button @click="searchFilm(textSearch)">Search</button>
+
+      <div class="result" v-for="(film, index) in filmResults " :key="index">
+          <div class="title">Titolo: {{film.title}}</div>
+          <div class="originalTitle">Titolo Originale: {{film.original_title}}</div>
+          <div class="language">Lingua: {{film.original_language}}</div>
+          <div class="vote">Voto: {{film.vote_average}}</div>
+      </div>
+
   </div>
 </template>
 
@@ -13,6 +21,7 @@ export default {
     data() {
         return{
             textSearch: "",
+            filmResults: [],
         };
     },
 
@@ -31,8 +40,10 @@ export default {
                 query: text,
                 }
             })
-            .then(function (response) {
-                console.log(response.data.results);
+            .then((response) => {
+
+                // Inserisco i risultati della ricerca in una variabile
+                this.filmResults = response.data.results;
             })
             .catch(function (error) {
                 console.log(error);
@@ -46,5 +57,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>
