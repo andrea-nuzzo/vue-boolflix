@@ -6,8 +6,7 @@
       <div class="result" v-for="(film, index) in filmResults " :key="index">
           <div class="title">Titolo: {{film.title}}</div>
           <div class="originalTitle">Titolo Originale: {{film.original_title}}</div>
-          <div class="flag-icon flag-icon-gr">Lingua: {{film.original_language}}</div>
-          <span class="flag-icon-g"></span>
+          <div class="flag"><flag :iso="film.original_language" /></div>
           <div class="vote">Voto: {{film.vote_average}}</div>
       </div>
 
@@ -58,5 +57,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+    .flag{
+        font-size: 20px;
+    }
 </style>

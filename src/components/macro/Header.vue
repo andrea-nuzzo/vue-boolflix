@@ -1,6 +1,5 @@
 <template>
   <header>
-      <span class =" flag-icon flag-icon-gr flag-icon-squared">Bandiera</span>
       <SearchBar/>
   </header>
 </template>

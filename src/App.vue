@@ -19,5 +19,4 @@ export default {
 </script>
 
 <style lang="scss">
-  @import './assets/style/global.scss'
 </style>
