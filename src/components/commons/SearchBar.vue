@@ -4,16 +4,21 @@
       <button @click="searchFilm(textSearch)">Search</button>
 
       <div class="result" v-for="(film, index) in filmResults " :key="index">
-
-        <div class="title" v-if="film.title == '' ">Titolo: {{film.name}}</div>
+        
+        <!-- Titolo -->
+         <!-- Se il film.title non è presente (quindi siamo all'interno delle serie Tv) inserisco il titolo della serie altrimenti ...-->
+        <div class="title" v-if="film.title === undefined ">Titolo: {{film.name}}</div>
         <div class="title" v-else >Titolo: {{film.title}}</div>
 
-        <div class="originalTitle" v-if="film.original_title == '' ">Titolo Originale: {{film.original_name}}</div>
-        <div class="originalTitle">Titolo Originale: {{film.original_title}}</div>
+        <!-- Titolo Originale -->
+        <!-- Se il film.original_title non è presente (quindi siamo all'interno delle serie Tv) inserisco il titolo della serie altrimenti ...-->
+        <div class="originalTitle" v-if="film.original_title === undefined ">Titolo Originale: {{film.original_name}}</div>
+        <div class="originalTitle" v-else>Titolo Originale: {{film.original_title}}</div>
 
-
+        <!-- Bandiere lingua -->
         <lang-flag :iso="film.original_language"/>
 
+        <!-- Voto -->
         <div class="vote">Voto: {{film.vote_average}}</div>
       </div>
 
@@ -65,22 +70,23 @@ export default {
                 });
             }
 
+            // Unisco i dati delle due richieste axios Film e Serie TV nell'array filmResults
             axios.all([getMovie(), getTvSeries()])
             .then((results) => {
-                console.log(results[1].data.results);
                 this.filmResults = [...results[0].data.results, ...results[1].data.results];
             });
 
-            
             //Svuoto il campo input
             this.textSearch = '';
         }
     },
+
 }
 </script>
 
 <style lang="scss" scoped>
-lang-flag{
-   height: 40px;
+.result{
+    margin: 20px;
+    border: 3px solid pink;
 }
 </style>
