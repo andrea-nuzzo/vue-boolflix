@@ -6,7 +6,8 @@
       <div class="result" v-for="(film, index) in filmResults " :key="index">
           <div class="title">Titolo: {{film.title}}</div>
           <div class="originalTitle">Titolo Originale: {{film.original_title}}</div>
-          <div class="language">Lingua: {{film.original_language}}</div>
+          <div class="flag-icon flag-icon-gr">Lingua: {{film.original_language}}</div>
+          <span class="flag-icon-g"></span>
           <div class="vote">Voto: {{film.vote_average}}</div>
       </div>
 
@@ -14,7 +15,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 export default {
     name: 'SearchBar',
 
@@ -57,4 +58,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>
