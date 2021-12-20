@@ -1,12 +1,19 @@
 <template>
   <header>
-      
+      <SearchBar/>
   </header>
 </template>
 
 <script>
+
+import SearchBar from '../commons/SearchBar.vue'
+
 export default {
-    name: 'Header'
+    name: 'Header',
+    components: {
+    SearchBar,
+  }
+
 }
 </script>
 
