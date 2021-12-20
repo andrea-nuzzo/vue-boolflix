@@ -4,10 +4,17 @@
       <button @click="searchFilm(textSearch)">Search</button>
 
       <div class="result" v-for="(film, index) in filmResults " :key="index">
-          <div class="title">Titolo: {{film.title}}</div>
-          <div class="originalTitle">Titolo Originale: {{film.original_title}}</div>
-          <div class="flag"><flag :iso="film.original_language" /></div>
-          <div class="vote">Voto: {{film.vote_average}}</div>
+
+        <div class="title" v-if="film.title == '' ">Titolo: {{film.name}}</div>
+        <div class="title" v-else >Titolo: {{film.title}}</div>
+
+        <div class="originalTitle" v-if="film.original_title == '' ">Titolo Originale: {{film.original_name}}</div>
+        <div class="originalTitle">Titolo Originale: {{film.original_title}}</div>
+
+
+        <lang-flag :iso="film.original_language"/>
+
+        <div class="vote">Voto: {{film.vote_average}}</div>
       </div>
 
   </div>
@@ -15,8 +22,12 @@
 
 <script>
 import axios from 'axios';
+import LangFlag from 'vue-lang-code-flags';
 export default {
     name: 'SearchBar',
+    components: {
+    LangFlag,
+    },
 
     data() {
         return{
@@ -56,10 +67,11 @@ export default {
 
             axios.all([getMovie(), getTvSeries()])
             .then((results) => {
+                console.log(results[1].data.results);
                 this.filmResults = [...results[0].data.results, ...results[1].data.results];
             });
 
-
+            
             //Svuoto il campo input
             this.textSearch = '';
         }
@@ -68,7 +80,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .flag{
-        font-size: 20px;
-    }
+lang-flag{
+   height: 40px;
+}
 </style>
