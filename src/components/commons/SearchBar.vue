@@ -4,9 +4,14 @@
       <button @click="searchFilm(textSearch)">Search</button>
 
       <div class="result" v-for="(film, index) in filmResults " :key="index">
+        <!-- Immagine -->
+        <div class="image">
+            <img :src='`https://image.tmdb.org/t/p/w342`+film.poster_path' alt="">
+        </div>
         
+
         <!-- Titolo -->
-         <!-- Se il film.title non è presente (quindi siamo all'interno delle serie Tv) inserisco il titolo della serie altrimenti ...-->
+        <!-- Se il film.title non è presente (quindi siamo all'interno delle serie Tv) inserisco il titolo della serie altrimenti ...-->
         <div class="title" v-if="film.title === undefined ">Titolo: {{film.name}}</div>
         <div class="title" v-else >Titolo: {{film.title}}</div>
 
@@ -19,7 +24,10 @@
         <lang-flag :iso="film.original_language"/>
 
         <!-- Voto -->
-        <div class="vote">Voto: {{film.vote_average}}</div>
+        <div class="vote">
+            <!-- Stampo il numero di stelle collegate al voto (il voto è diviso in due in quanto il voto medio ammonta a 10 mentre il nostro numero di stelle massime è 5) -->
+            Voto: <i class="fas fa-star" v-for="(time, index) in Math.round(film.vote_average/2)" :key="index" ></i>
+            </div>
       </div>
 
   </div>
