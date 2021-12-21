@@ -1,8 +1,8 @@
 <template>
   <div>
-      <form @submit.prevent="searchFilm(textSearch)">
-        <input v-model="textSearch" type="text" placeholder="Search">
-        <button>Search</button>      
+      <form @submit.prevent="searchFilm(textSearch)" class="d-flex me-5">
+        <input class="form-control me-3" v-model="textSearch" type="text" placeholder="Search">
+        <button type="button" class="btn btn-outline-danger">Search</button>      
       </form>
   </div>
 </template>
@@ -51,5 +51,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+button{
+    &:hover{
+        color: black;
+    }
+}
 </style>

@@ -1,40 +1,36 @@
 <template>
 <div>
-  <div class="result" v-for="(tvShow, index) in dataShared.tvShowSearched " :key="index">
+  <div>
         <!-- Immagine -->
         <div class="image">
-            <img :src='`https://image.tmdb.org/t/p/w342`+tvShow.poster_path' alt="">
+            <img :src='`https://image.tmdb.org/t/p/w342`+tvShowData.poster_path' alt="">
         </div>
-        
-
         <!-- Titolo -->
-        <div class="title">Titolo: {{tvShow.name}}</div>
+        <div class="title">Titolo: {{tvShowData.name}}</div>
 
         <!-- Titolo Originale -->
-        <div class="originalTitle">Titolo Originale: {{tvShow.original_name}}</div>
+        <div class="originalTitle">Titolo Originale: {{tvShowData.original_name}}</div>
 
         <!-- Bandiere lingua -->
-        <lang-flag :iso="tvShow.original_language"/>
+        <lang-flag :iso="tvShowData.original_language"/>
 
         <!-- Voto -->
         <div class="vote">
-            Voto: <i class="fas fa-star" v-for="(time, index) in Math.round(tvShow.vote_average/2)" :key="index" ></i>
+            Voto: <i class="fas fa-star" v-for="(time, index) in Math.round(tvShowData.vote_average/2)" :key="index" ></i>
         </div>
     </div>
 </div>
 </template>
 
 <script>
-import dataShared from '../../shared/dataShared';
 
 export default {
     name: 'CardMovie',
 
-    data(){
-        return{
-            dataShared
-        };
+    props:{
+        tvShowData: Object,
     },
+
 }
 </script>
 

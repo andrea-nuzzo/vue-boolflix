@@ -1,43 +1,46 @@
 <template>
 <div>
-  <div class="result" v-for="(film, index) in dataShared.moviesSearched " :key="index">
-        <!-- Immagine -->
-        <div class="image">
-            <img :src='`https://image.tmdb.org/t/p/w342`+film.poster_path' alt="">
+        <div class="row p-3 border border-danger" >
+            <div class="col bgImage border border-primary" :style="{backgroundImage: `url('https://image.tmdb.org/t/p/w342${movieData.poster_path}')`}">
+                <!-- Titolo -->
+                <div class="title">Titolo: {{movieData.title}}</div>
+
+                <!-- Titolo Originale -->
+                <div class="originalTitle">Titolo Originale: {{movieData.original_title}}</div>
+
+                <!-- Bandiere lingua -->
+                <lang-flag :iso="movieData.original_language"/>
+
+                <!-- Voto -->
+                <div class="vote">
+                    Voto: <i class="fas fa-star" v-for="(time, index) in Math.round(movieData.vote_average/2)" :key="index" ></i>
+                </div>
+            </div>
         </div>
-        
-
-        <!-- Titolo -->
-        <div class="title">Titolo: {{film.title}}</div>
-
-        <!-- Titolo Originale -->
-        <div class="originalTitle">Titolo Originale: {{film.original_title}}</div>
-
-        <!-- Bandiere lingua -->
-        <lang-flag :iso="film.original_language"/>
-
-        <!-- Voto -->
-        <div class="vote">
-            Voto: <i class="fas fa-star" v-for="(time, index) in Math.round(film.vote_average/2)" :key="index" ></i>
-        </div>
-    </div>
 </div>
 </template>
 
 <script>
-import dataShared from '../../shared/dataShared';
 
 export default {
     name: 'CardMovie',
-
-    data(){
-        return{
-            dataShared
-        };
+    props:{
+        movieData: Object
     },
 }
 </script>
 
 <style lang ='scss' scoped>
 
+    .row{
+        height: 523px;
+    }
+
+    .bgImage{
+        width: 342px;
+        max-width: 342px;
+        height: 100%;
+        background-size: 100%;
+        background-repeat:no-repeat;
+    }
 </style>
