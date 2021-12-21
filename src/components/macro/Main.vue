@@ -1,13 +1,22 @@
 <template>
   <main>
-
+    <CardMovie/>
+    <CardTvShow/>
   </main>
 </template>
 
 <script>
-export default {
-    name: 'Main'
 
+import CardMovie from '../commons/CardMovie.vue'
+import CardTvShow from '../commons/CardTvShow.vue'
+
+export default {
+    name: 'Main',
+
+  components: {
+    CardMovie,
+    CardTvShow,
+  },
 }
 </script>
 

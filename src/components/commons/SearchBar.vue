@@ -1,100 +1,55 @@
 <template>
   <div>
-      <input v-model="textSearch" type="text" placeholder="Search">
-      <button @click="searchFilm(textSearch)">Search</button>
-
-      <div class="result" v-for="(film, index) in filmResults " :key="index">
-        <!-- Immagine -->
-        <div class="image">
-            <img :src='`https://image.tmdb.org/t/p/w342`+film.poster_path' alt="">
-        </div>
-        
-
-        <!-- Titolo -->
-        <!-- Se il film.title non è presente (quindi siamo all'interno delle serie Tv) inserisco il titolo della serie altrimenti ...-->
-        <div class="title" v-if="film.title === undefined ">Titolo: {{film.name}}</div>
-        <div class="title" v-else >Titolo: {{film.title}}</div>
-
-        <!-- Titolo Originale -->
-        <!-- Se il film.original_title non è presente (quindi siamo all'interno delle serie Tv) inserisco il titolo della serie altrimenti ...-->
-        <div class="originalTitle" v-if="film.original_title === undefined ">Titolo Originale: {{film.original_name}}</div>
-        <div class="originalTitle" v-else>Titolo Originale: {{film.original_title}}</div>
-
-        <!-- Bandiere lingua -->
-        <lang-flag :iso="film.original_language"/>
-
-        <!-- Voto -->
-        <div class="vote">
-            <!-- Stampo il numero di stelle collegate al voto (il voto è diviso in due in quanto il voto medio ammonta a 10 mentre il nostro numero di stelle massime è 5) -->
-            Voto: <i class="fas fa-star" v-for="(time, index) in Math.round(film.vote_average/2)" :key="index" ></i>
-            </div>
-      </div>
-
+      <form @submit.prevent="searchFilm(textSearch)">
+        <input v-model="textSearch" type="text" placeholder="Search">
+        <button>Search</button>      
+      </form>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import LangFlag from 'vue-lang-code-flags';
+import dataShared from '../../shared/dataShared';
+
+
 export default {
     name: 'SearchBar',
-    components: {
-    LangFlag,
-    },
 
     data() {
         return{
             textSearch: "",
-            filmResults: [],
+            dataShared,
         };
     },
 
     methods: {
 
-        // Questa funzione importa il testo scritto dall'utente per cercare il film
+        // Questa funzione importa il testo scritto dall'utente per cercare il film e serie tv
         searchFilm(text){
 
-            function getMovie() {
-                return  axios.get('https://api.themoviedb.org/3/search/movie',{
-                params: {
-                // Aggiungo il parametro api_key per l'accesso all'API e ...
-                api_key: '012221f6f2f19b76150fb8c79d712a76',
+            //Request API Movies
+            axios.get('https://api.themoviedb.org/3/search/movie',{
+                params: {api_key: '012221f6f2f19b76150fb8c79d712a76',query: text}
+            })
+            .then((response) => {
+                this.dataShared.moviesSearched = response.data.results;
+            });
 
-                //il parametro query con il testo inserito dall'utente per la ricerca.
-                query: text,
-                }
-                });
-            }
-
-             function getTvSeries() {
-                return  axios.get('https://api.themoviedb.org/3/search/tv',{
-                params: {
-                // Aggiungo il parametro api_key per l'accesso all'API e ...
-                api_key: '012221f6f2f19b76150fb8c79d712a76',
-
-                //il parametro query con il testo inserito dall'utente per la ricerca.
-                query: text,
-                }
-                });
-            }
-
-            // Unisco i dati delle due richieste axios Film e Serie TV nell'array filmResults
-            axios.all([getMovie(), getTvSeries()])
-            .then((results) => {
-                this.filmResults = [...results[0].data.results, ...results[1].data.results];
+            //Request API TV Shows
+            axios.get('https://api.themoviedb.org/3/search/tv',{
+                params: {api_key: '012221f6f2f19b76150fb8c79d712a76',query: text}
+            })
+            .then((response) => {
+                this.dataShared.tvShowSearched = response.data.results;
             });
 
             //Svuoto il campo input
             this.textSearch = '';
         }
     },
-
 }
 </script>
 
 <style lang="scss" scoped>
-.result{
-    margin: 20px;
-    border: 3px solid pink;
-}
+
 </style>
