@@ -8,7 +8,11 @@
 
 
     <!-- ************************************************** -->
-    <div class="container">
+    <div class="start d-flex justify-content-center align-items-center" v-if="dataShared.moviesSearched.length == 0">
+      <h2>Ricerca film o Serie TV</h2>
+    </div>
+
+    <div  v-else class="container">
         <h2>Film </h2>
 
         <div class="col d-flex flex-wrap justify-content-center" >
@@ -49,4 +53,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .start{
+      height: calc(100vh - 86px);
+      border: 1px solid red;
+      h2{
+        font-size: 100px;
+      }
+    }
 </style>
