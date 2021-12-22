@@ -6,10 +6,10 @@
       </div>
 
       <div class="bottomCard" v-show="isActive" >
-        <h1 class="title">{{movieData.title }}</h1>
+        <h1 class="title">{{movieData.title || movieData.name }}</h1>
 
         <h5 class="originalTitle">
-         {{movieData.original_title }}
+         {{movieData.original_title || movieData.original_name }}
         </h5>
 
         <div>
@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  name: "CardMovie",
+  name: "Card",
   props: {
     movieData: Object,
   },

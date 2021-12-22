@@ -9,12 +9,20 @@
 
     <!-- ************************************************** -->
     <div class="container">
+        <h2>Film </h2>
+
         <div class="col d-flex flex-wrap justify-content-center" >
-              <CardMovie v-for="(card, index) in dataShared.moviesSearched" :key="index" :movieData="card"/>
+              <div v-for="(card, index) in dataShared.moviesSearched" :key="index" >
+                <Card :movieData="card" v-if="card.poster_path !== null"  />
+              </div>
         </div>
 
-        <div class="col border border-ligth" v-for="(card, index) in dataShared.tvShowSearched" :key="index" >
-              <CardTvShow :tvShowData="card"/>
+         <h2>Serie Tv</h2>
+
+        <div class="col d-flex flex-wrap justify-content-center" >
+              <div v-for="(card, index) in dataShared.tvShowSearched" :key="index" >
+                <Card :movieData="card" v-if="card.poster_path !== null"  />
+              </div>
         </div>
     </div>
   </main>
@@ -22,22 +30,22 @@
 
 <script>
 import dataShared from '../../shared/dataShared';
-import CardMovie from '../commons/CardMovie.vue'
-import CardTvShow from '../commons/CardTvShow.vue'
+import Card from '../commons/Card.vue'
 
 export default {
     name: 'Main',
   data(){
        return{
-           dataShared
+           dataShared,
        };
    },
   components: {
-    CardMovie,
-    CardTvShow,
+    Card,
   },
+
+
  
-}
+};
 </script>
 
 <style lang="scss" scoped>
