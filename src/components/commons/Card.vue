@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row p-2 backgroundContainer" :class="{active: isActive }">
+    <div class="row m-1 d-flex align-items-start flex-column backgroundContainer" :class="{active: isActive }">
       <div class="topCard" @mouseenter="isActive = true" @mouseleave="isActive = false">
           <img :src="`https://image.tmdb.org/t/p/w342${movieData.poster_path}`" alt="">
       </div>
@@ -41,14 +41,9 @@ export default {
 
 <style lang ='scss' scoped>
 
-    .backgroundContainer {
-      border-radius: 2rem;
-      width: 500px;
-      max-width: 500px;
-    }
 
     .topCard{
-      width: 342px;
+      width: 200px;
       margin: 0 auto;
       border-top-left-radius: 2rem;
       border-top-right-radius: 2rem;
@@ -57,18 +52,19 @@ export default {
       align-items: center;
 
         img {
+        width: 200px;
         border-top-left-radius: 2rem;
         border-top-right-radius: 2rem;
       }
       
     }
     .active{
-      transition: 1s;
+      transition: .5s;
       transform: scale(1.1);
     }
 
     .bottomCard{
-      max-width:342px;
+      max-width:200px;
       padding: 20px;
       margin: 0 auto;
       border-bottom-left-radius: 2rem;
@@ -77,11 +73,15 @@ export default {
       background-color: black;
 
       h1{
-        font-size: 22px;
+        font-size: 14px;
+      }
+
+       h5{
+        font-size: 12px;
       }
 
       .flag{
-        font-size: 30px;
+        font-size: 20px;
         border-radius: 50%;
       }
 
