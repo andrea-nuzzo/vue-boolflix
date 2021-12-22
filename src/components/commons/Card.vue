@@ -18,6 +18,7 @@
 
         <h5 class="vote">
           <i class="fas fa-star" v-for="(time, index) in Math.round(movieData.vote_average / 2)" :key="index"></i>
+          <i class="far fa-star" v-for="(time, index) in (5 - Math.round(movieData.vote_average / 2))" :key="index"></i>
         </h5>
       </div>
     </div>
