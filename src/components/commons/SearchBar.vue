@@ -2,7 +2,7 @@
   <div>
       <form @submit.prevent="searchFilm(textSearch)" class="d-flex me-5">
         <input class="form-control me-3" v-model="textSearch" type="text" placeholder="Search">
-        <button type="button" class="btn btn-outline-danger">Search</button>      
+        <button type="submit" class="btn btn-outline-danger">Search</button>      
       </form>
   </div>
 </template>
@@ -26,6 +26,10 @@ export default {
 
         // Questa funzione importa il testo scritto dall'utente per cercare il film e serie tv
         searchFilm(text){
+            
+            this.dataShared.moviesSearched = [];
+            this.dataShared.tvShowSearched =[];
+
 
             //Request API Movies
             axios.get('https://api.themoviedb.org/3/search/movie',{
