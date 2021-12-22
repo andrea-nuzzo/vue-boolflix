@@ -1,46 +1,95 @@
 <template>
-<div>
-        <div class="row p-3 border border-danger" >
-            <div class="col bgImage border border-primary" :style="{backgroundImage: `url('https://image.tmdb.org/t/p/w342${movieData.poster_path}')`}">
-                <!-- Titolo -->
-                <div class="title">Titolo: {{movieData.title}}</div>
+  <div>
+    <div class="row p-2 backgroundContainer" :class="{active: isActive }">
+      <div class="topCard" @mouseenter="isActive = true" @mouseleave="isActive = false">
+          <img :src="`https://image.tmdb.org/t/p/w342${movieData.poster_path}`" alt="">
+      </div>
 
-                <!-- Titolo Originale -->
-                <div class="originalTitle">Titolo Originale: {{movieData.original_title}}</div>
+      <div class="bottomCard" v-show="isActive" >
+        <h1 class="title">{{movieData.title }}</h1>
 
-                <!-- Bandiere lingua -->
-                <lang-flag :iso="movieData.original_language"/>
+        <h5 class="originalTitle">
+         {{movieData.original_title }}
+        </h5>
 
-                <!-- Voto -->
-                <div class="vote">
-                    Voto: <i class="fas fa-star" v-for="(time, index) in Math.round(movieData.vote_average/2)" :key="index" ></i>
-                </div>
-            </div>
+        <div>
+          <lang-flag class="flag" :iso="movieData.original_language"/>
         </div>
-</div>
+
+        <h5 class="vote">
+          <i class="fas fa-star" v-for="(time, index) in Math.round(movieData.vote_average / 2)" :key="index"></i>
+        </h5>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-
 export default {
-    name: 'CardMovie',
-    props:{
-        movieData: Object
-    },
-}
+  name: "CardMovie",
+  props: {
+    movieData: Object,
+  },
+
+  data(){
+    return{
+      isActive: false,
+    }
+  }
+};
 </script>
 
 <style lang ='scss' scoped>
 
-    .row{
-        height: 523px;
+    .backgroundContainer {
+      border-radius: 2rem;
+      width: 500px;
+      max-width: 500px;
     }
 
-    .bgImage{
-        width: 342px;
-        max-width: 342px;
-        height: 100%;
-        background-size: 100%;
-        background-repeat:no-repeat;
+    .topCard{
+      width: 342px;
+      margin: 0 auto;
+      border-top-left-radius: 2rem;
+      border-top-right-radius: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+        img {
+        border-top-left-radius: 2rem;
+        border-top-right-radius: 2rem;
+      }
+      
     }
+    .active{
+      transition: 1s;
+      transform: scale(1.1);
+    }
+
+    .bottomCard{
+      max-width:342px;
+      padding: 20px;
+      margin: 0 auto;
+      border-bottom-left-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+      color: white;
+      background-color: black;
+
+      h1{
+        font-size: 22px;
+      }
+
+      .flag{
+        font-size: 30px;
+        border-radius: 50%;
+      }
+
+      .vote{
+        margin-top: 10px;
+      }
+     
+    }
+
+
 </style>

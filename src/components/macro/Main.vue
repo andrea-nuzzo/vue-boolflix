@@ -1,16 +1,22 @@
 <template>
   <main>
-      <div class="row p-2">
-        <div class="col border border-ligth d-flex flex-wrap" >
+    <!-- ************************************************** -->
+
+    
+
+
+
+
+    <!-- ************************************************** -->
+    <div class="container">
+        <div class="col d-flex flex-wrap justify-content-center" >
               <CardMovie v-for="(card, index) in dataShared.moviesSearched" :key="index" :movieData="card"/>
         </div>
-      </div>
 
-      <div class="row p-2">
         <div class="col border border-ligth" v-for="(card, index) in dataShared.tvShowSearched" :key="index" >
               <CardTvShow :tvShowData="card"/>
         </div>
-      </div>
+    </div>
   </main>
 </template>
 
@@ -21,24 +27,18 @@ import CardTvShow from '../commons/CardTvShow.vue'
 
 export default {
     name: 'Main',
-
   data(){
        return{
            dataShared
        };
    },
-
   components: {
     CardMovie,
     CardTvShow,
   },
+ 
 }
 </script>
 
 <style lang="scss" scoped>
-  ul{
-    li{
-      list-style: none;
-    }
-  }
 </style>

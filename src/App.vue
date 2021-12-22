@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header/>
+    <Header/>    
     <Main/>
   </div>
 </template>
@@ -14,6 +14,7 @@ export default {
   components: {
     Header,
     Main,
+    
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <header>
     <div class="container-fluid">
       <div class="row">
-        <div class="col d-flex align-items-center justify-content-between border border-danger">
+        <div class="col d-flex align-items-center justify-content-between">
             <div class="logo">
               <img src="../../assets/img/Logo_Big.png" alt="">
             </div>
